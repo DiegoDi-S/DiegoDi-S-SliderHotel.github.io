@@ -7,18 +7,26 @@ let args = {
 let definition = null;
 
 // get slider values
-let count = document.getElementById('count').value;
-let radius = document.getElementById('radius').value;
-let length = document.getElementById('length').value;
+let ranura = document.getElementById('ranura').value;
+let inclinacion = document.getElementById('inclinacion').value;
+let entrecalle = document.getElementById('entrecalle').value;
+let exo = document.getElementById('exo').value;
+let extrusion = document.getElementById('extrusion').value;
 
-let param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Length');
-param1.append([0], [length]);
+let param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Ranura');
+param1.append([0], [ranura]);
 
-let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Radius');
-param2.append([0], [radius]);
+let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Inclinacion');
+param2.append([0], [inclinacion]);
 
-let param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Count');
-param3.append([0], [count]);
+let param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Entrecalle');
+param3.append([0], [entrecalle]);
+
+let param4 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Exo');
+param4.append([0], [exo]);
+
+let param5 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:ExtrusionExo');
+param5.append([0], [extrusion]);
 
 rhino3dm().then(async m => {
     console.log('Loaded rhino3dm.');
@@ -32,7 +40,7 @@ rhino3dm().then(async m => {
 
     // load a grasshopper file!
     //let url = 'https://diegodi-s.github.io/DiegoDi-S-Slider25.github.io/Compute_Tower_10.gh';
-    let url = 'Compute_Tower_39.gh';
+    let url = 'Compute_Tower.gh';
     let res = await fetch(url);
     let buffer = await res.arrayBuffer();
     let arr = new Uint8Array(buffer);
@@ -50,6 +58,8 @@ function compute(){
     trees.push(param1);
     trees.push(param2);
     trees.push(param3);
+    trees.push(param4);
+    trees.push(param5);
 
     RhinoCompute.Grasshopper.evaluateDefinition(definition, trees).then(result => {
         // RhinoCompute.computeFetch("grasshopper", args).then(result => {
@@ -85,18 +95,26 @@ function onSliderChange(){
     document.getElementById('loader').style.display = 'block';
 
     // get slider values
-    count = document.getElementById('count').value;
-    radius = document.getElementById('radius').value;
-    length = document.getElementById('length').value;
+    ranura = document.getElementById('ranura').value;
+    inclinacion = document.getElementById('inclinacion').value;
+    entrecalle = document.getElementById('entrecalle').value;
+    exo = document.getElementById('exo').value;
+    extrusion = document.getElementById('extrusion').value;
 
-    param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Length');
-    param1.append([0], [length]);
+    param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Ranura');
+    param1.append([0], [ranura]);
 
-    param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Radius');
-    param2.append([0], [radius]);
+    param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Inclinacion');
+    param2.append([0], [inclinacion]);
 
-    param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Count');
-    param3.append([0], [count]);
+    param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Entrecalle');
+    param3.append([0], [entrecalle]);
+
+    param4 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:Exo');
+    param4.append([0], [exo]);
+
+    param5 = new RhinoCompute.Grasshopper.DataTree('RH_IN:201:ExtrusionExo');
+    param5.append([0], [extrusion]);
 
     compute();
 }
