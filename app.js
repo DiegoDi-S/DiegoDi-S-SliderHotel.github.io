@@ -39,8 +39,8 @@ rhino3dm().then(async m => {
     //RhinoCompute.url = "http://127.0.0.1:8081/";
 
     // load a grasshopper file!
-    //let url = 'https://diegodi-s.github.io/DiegoDi-S-SliderHotel.github.io/Compute_Tower_04.gh';
-    let url = 'Compute_Tower_05.gh';
+    //let url = 'https://diegodi-s.github.io/DiegoDi-S-SliderHotel.github.io/Compute_Tower_05.gh';
+    let url = 'Compute_Tower_06.gh';
     let res = await fetch(url);
     let buffer = await res.arrayBuffer();
     let arr = new Uint8Array(buffer);
