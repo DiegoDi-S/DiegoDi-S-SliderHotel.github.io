@@ -66,17 +66,26 @@
         <div id="container">
             <div id="overlay">
                 <div>
-                    <input type="range" id="count" name="count" min="0" max="10.00" value="1.20" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
-                    <label for="count">Count</label>
+                    <input type="range" id="ranura" name="ranura" min="0" max="10.00" value="2.00" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="ranura">Ranura</label>
                 </div>
                 <div>
-                    <input type="range" id="radius" name="radius" min="0" max="10.00" value="0.50" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
-                    <label for="radius">Radius</label>
+                    <input type="range" id="inclinacion" name="inclinacion" min="0" max="10.00" value="1.50" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="inclinacion">Slope</label>
                 </div>
                 <div>
-                    <input type="range" id="length" name="length" min="0" max="10.00" value="0.50" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
-                    <label for="length">Length</label>
+                    <input type="range" id="entrecalle" name="entrecalle" min="0" max="1.00" value="0.20" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="entrecalle">Entrecalle</label>
                 </div>
+                <div>
+                    <input type="range" id="exo" name="exo" min="0" max="1.00" value="0.70" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="exo">Exostructure</label>
+                </div>
+                <div>
+                    <input type="range" id="extrusion" name="extrusion" min="0" max="10.00" value="3.40" step="0.1" onmouseup="onSliderChange()" ontouchend="onSliderChange()">
+                    <label for="extrusion">Extrusion</label>
+                </div>
+
             </div>
 
             <div id="glcanvas"></div>
