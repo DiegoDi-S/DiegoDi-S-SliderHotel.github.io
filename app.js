@@ -39,9 +39,8 @@ rhino3dm().then(async m => {
     //RhinoCompute.url = "http://127.0.0.1:8081/";
 
     // load a grasshopper file!
-
-    //let url = 'https://diegodi-s.github.io/DiegoDi-S-SliderHotel_02.github.io/Compute_Tower_09.gh';
-    let url = 'Compute_Tower_34.gh';
+    //let url = 'https://diegodi-s.github.io/test.github.io/Compute_Tower_36.gh';
+    let url = 'Compute_Tower_36.gh';
     let res = await fetch(url);
     let buffer = await res.arrayBuffer();
     let arr = new Uint8Array(buffer);
@@ -72,12 +71,32 @@ function compute(){
         let data = JSON.parse(result.values[0].InnerTree['{ 0; }'][0].data);
         let mesh = rhino.CommonObject.decode(data);
 
+        let data2 = JSON.parse(result.values[1].InnerTree['{ 0; }'][0].data);
+        let mesh2 = rhino.CommonObject.decode(data2);
 
         //let material = new THREE.MeshNormalMaterial({ color: 0xff0000});
 
-        let material = new THREE.MeshPhongMaterial({color: 0xffffff});
+        //let material2 = new THREE.MeshPhongMaterial({color: 0x33acff, opacity: 0.1, transparent: true, side: THREE.DoubleSide,});
         //let material = new THREE.MeshBasicMaterial({color: 0xf5f5f5});
+
+        let material = new THREE.MeshPhysicalMaterial({side: THREE.DoubleSide});
+        let material2 = new THREE.MeshPhysicalMaterial({color: 0xa2c3da, opacity: 0.5, transparent:true, side: THREE.DoubleSide});
+
+        loadPBRMaterial(material, 'streaked-metal1');
+        material.metalness = 0.75;
+        material.roughness = 0.15;
+        material.normalScale.x = 1.0;
+        material.normalScale.y = 1.0;
+        //material.envMap = scene.background;
+        material.envMap = loadCubeMap('SwedishRoyalCastle', '', 'jpg');
+
+
+
+
+
+
         let threeMesh = meshToThreejs(mesh, material);
+        let threeMesh2 = meshToThreejs(mesh2, material2);
 
         // clear meshes from scene
         scene.traverse(child => {
@@ -87,6 +106,7 @@ function compute(){
         });
 
         scene.add(threeMesh);
+        scene.add(threeMesh2);
     });
 }
 
@@ -119,6 +139,34 @@ function onSliderChange(){
 
     compute();
 }
+
+
+
+
+
+ function loadPBRMaterial(material, name) {
+            let tl = new THREE.TextureLoader();
+
+            tl.setPath('https://diegodi-s.github.io/rhino3dm/docs/javascript/samples/resources/materials/PBR/' + name + '/');
+            material.map          = tl.load(name + '_base.png');
+            material.aoMmap       = tl.load(name + '_ao.png');
+            material.normalMap    = tl.load(name + '_normal.png');
+            material.metalnessMap = tl.load(name + '_metallic.png');
+          }
+
+ function loadCubeMap(name, prefix, format) {
+            let ctl = new THREE.CubeTextureLoader();
+
+            ctl.setPath('https://diegodi-s.github.io/rhino3dm/docs/javascript/samples/resources/textures/cube/' + name + '/');
+            return ctl.load([prefix + 'px.' + format, prefix + 'nx.' + format, prefix + 'py.' + format,
+                             prefix + 'ny.' + format, prefix + 'pz.' + format, prefix + 'nz.' + format]);
+          }
+
+
+
+
+
+
 
 // BOILERPLATE //
 
